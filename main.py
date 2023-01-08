@@ -1,6 +1,7 @@
 import database
 import plot
 import calc_functions
+import pandas as pd
 
 # Read train.csv and ideal.csv, create table and write data into DB
 
@@ -58,3 +59,14 @@ abw = calc_functions.least_squared(y1_data['y1'], ideal_y)  # calculate least sq
 abw_t = abw.T  # transpose deviation
 sum_abw = abw_t.sum()  # calculate sum of deviation
 min_abw = sum_abw.min()  # calculate minimal sum
+
+result = calc_functions.find_ideal(sum_abw, min_abw)  # find ideal function for training function 1
+new_y1 = pd.DataFrame(abw)  # create new dataframe from the calculated deviations
+new_y1['Sum Abw'] = sum_abw.tolist()  # add sum of deviation to dataframe
+new_y1['ideal_function'] = result  # add result yes or no as column to the dataframe
+new_y1 = new_y1.loc[(new_y1['ideal_function'] == "Yes")]  # filter by the ideal function (value equals yes)
+new_y1 = calc_functions.drop_columns(new_y1)  # drop column ideal_function and Sum Abw
+new_y1 = new_y1.T  # transpose dataframe to origin
+new_y1 = y1_data.join(new_y1)  # join the two dataframes to get x-, y-fit and y-abw of the ideal function
+new_y1.set_index('x', inplace=True)  # set column x as index
+print("function 1: ", new_y1)  # print dataframe of function 1
