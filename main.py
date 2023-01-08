@@ -55,3 +55,6 @@ ideal_y = ideal_y.T  # transpose data ideal
 
 # find ideal function of training function 1:
 abw = calc_functions.least_squared(y1_data['y1'], ideal_y)  # calculate least square of training function1
+abw_t = abw.T  # transpose deviation
+sum_abw = abw_t.sum()  # calculate sum of deviation
+min_abw = sum_abw.min()  # calculate minimal sum
