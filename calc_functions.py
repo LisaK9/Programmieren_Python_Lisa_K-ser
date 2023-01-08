@@ -22,3 +22,12 @@ def find_ideal(sum_abw, min_abw):
         else:
             result.append("No")
     return result
+
+
+""" Function drop_columns drops the columns ideal_function and Sum Abw from the dataframe  """
+
+
+def drop_columns(df):
+    df = df.drop(columns='ideal_function')  # drop column ideal_function
+    df = df.drop(columns='Sum Abw')  # drop column Sum Abw
+    return df
