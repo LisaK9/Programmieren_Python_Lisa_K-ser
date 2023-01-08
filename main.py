@@ -1,5 +1,6 @@
 import database
 import plot
+import calc_functions
 
 # Read train.csv and ideal.csv, create table and write data into DB
 
@@ -47,3 +48,10 @@ x_data = y1_data['x']
 
 # plot trainings functions
 plot.train_functions(y1_data['x'], y1_data['y1'], y2_data['y2'], y3_data['y3'], y4_data['y4'])
+
+# drop x values from ideal functions
+ideal_y = data_ideal.drop(columns='x')
+ideal_y = ideal_y.T  # transpose data ideal
+
+# find ideal function of training function 1:
+abw = calc_functions.least_squared(y1_data['y1'], ideal_y)  # calculate least square of training function1
