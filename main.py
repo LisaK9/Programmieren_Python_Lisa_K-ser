@@ -1,4 +1,5 @@
 import database
+import plot
 
 # Read train.csv and ideal.csv, create table and write data into DB
 
@@ -36,3 +37,13 @@ else:
     data_ideal.createTable()  # create table ideal
     data_ideal.insertTable()  # insert data into table ideal
     data_ideal = data_ideal.getQuery()  # return sql data from table train as dataframe
+
+# for each training function create a dataframe with x- and y values
+y1_data = data_train.filter(items=['x', 'y1'])
+y2_data = data_train.filter(items=['x', 'y2'])
+y3_data = data_train.filter(items=['x', 'y3'])
+y4_data = data_train.filter(items=['x', 'y4'])
+x_data = y1_data['x']
+
+# plot trainings functions
+plot.train_functions(y1_data['x'], y1_data['y1'], y2_data['y2'], y3_data['y3'], y4_data['y4'])
