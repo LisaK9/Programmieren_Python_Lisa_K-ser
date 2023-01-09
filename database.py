@@ -102,16 +102,16 @@ class WriteDataframeIntoDB(DatabaseOperations):
         self.contents = df.values
         self.table_name = table_name
 
-    """Overrides the function insertTable in DatabaseOperations. insert the data from 
-    a dataframe into a database table and closes the database connection"""
-
     def insertTable(self):
-        self.sql = 'INSERT INTO {0} ('.format(self.table_name)  # insert all rows from df
+        self.sql = 'INSERT INTO {0} ('.format(self.table_name)  # insert all rows from csv
         for column in self.header:
             self.sql += column + ', '
-        self.sql = self.sql[:-1] + ') VALUES('
+        self.sql = self.sql[:-2] + ') VALUES('
         self.sql += '?, ' * len(self.header)
         self.sql = self.sql[:-2] + ')'
         self.cursor.executemany(self.sql, self.contents)
         self.connection.commit()
         self.close()
+
+
+
