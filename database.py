@@ -58,7 +58,7 @@ class DatabaseOperations(ReadCsv):
     def createTable(self):
         self.sql = 'CREATE TABLE IF NOT EXISTS {0} ('.format(self.table_name)  # create table
         for column in self.header:
-            self.sql += column + ' FLOAT, '
+            self.sql += column + ', '
         self.sql = self.sql[:-2] + ')'
         print(self.sql)
         self.cursor.execute(self.sql)
@@ -88,3 +88,30 @@ class DatabaseOperations(ReadCsv):
 
     def close(self):
         self.connection.close()
+
+
+"""the class WriteDataframeIntoDB inherits from the class DatabaseOperations and override the function insertTable
+to write the data of a dataframe into a database table"""
+
+
+class WriteDataframeIntoDB(DatabaseOperations):
+
+    def __init__(self, table_name, df):
+        super().__init__(table_name)
+        self.header = df.columns.tolist()
+        self.contents = df.values
+        self.table_name = table_name
+
+    """Overrides the function insertTable in DatabaseOperations. insert the data from 
+    a dataframe into a database table and closes the database connection"""
+
+    def insertTable(self):
+        self.sql = 'INSERT INTO {0} ('.format(self.table_name)  # insert all rows from df
+        for column in self.header:
+            self.sql += column + ', '
+        self.sql = self.sql[:-1] + ') VALUES('
+        self.sql += '?, ' * len(self.header)
+        self.sql = self.sql[:-2] + ')'
+        self.cursor.executemany(self.sql, self.contents)
+        self.connection.commit()
+        self.close()
