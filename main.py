@@ -2,6 +2,7 @@ import database
 import plot
 import calc_functions
 import pandas as pd
+import numpy as np
 
 # Read train.csv and ideal.csv, create table and write data into DB
 
@@ -123,3 +124,17 @@ print("function 4: ", new_y4)  # print dataframe of function 4
 data_test = pd.read_csv('test.csv')  # import data from test.csv as dataframe
 data_test.set_index('x', inplace=True)  # set column x as index
 print("Data of test.csv: ", data_test)  # print test_data
+
+
+"""Compare train function 1 with test data"""
+column_name = calc_functions.get_function(new_y1)  # get column name of ideal function 1
+abw_train_max = np.max(new_y1[column_name])  # get max deviate from training data
+ideal = data_ideal.filter(items=['x', column_name])  # filtering data_ideal to the ideal function
+ideal['abw_train'] = new_y1[column_name].tolist()  # add abw_train to the dataframe ideal
+ideal.set_index('x', inplace=True)  # set column x as index
+data_function1 = data_test.join(ideal)  # join the test data with die data of the ideal function
+print(data_function1)
+abw_test = calc_functions.least_squared(data_function1['y'], data_function1[
+    column_name])  # calculate least square between y_test and y_ideal
+abw_train = data_function1['abw_train']  # get deviate from training data
+abw_test_train = abw_test - abw_train  # calculate deviate between test and train deviate
