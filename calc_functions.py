@@ -1,5 +1,3 @@
-
-
 """ Function to calculate the least squared y deviation.
   Input: y, y_ideal
   Output: least squared y deviation"""
@@ -31,3 +29,12 @@ def drop_columns(df):
     df = df.drop(columns='ideal_function')  # drop column ideal_function
     df = df.drop(columns='Sum Abw')  # drop column Sum Abw
     return df
+
+
+"""Function get_function takes as input a dataframe and returns the column name in place one, which ist the name
+of the ideal function"""
+
+
+def get_function(df):
+    column_name = df.columns.tolist()
+    return column_name[1]
