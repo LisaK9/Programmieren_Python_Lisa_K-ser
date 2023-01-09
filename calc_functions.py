@@ -1,3 +1,5 @@
+import math
+
 """ Function to calculate the least squared y deviation.
   Input: y, y_ideal
   Output: least squared y deviation"""
@@ -38,3 +40,10 @@ of the ideal function"""
 def get_function(df):
     column_name = df.columns.tolist()
     return column_name[1]
+
+
+""" Function value_krit returns the criterion maximal deviation plus root square"""
+
+
+def value_krit(abw_max):
+    return abw_max + math.sqrt(2)
