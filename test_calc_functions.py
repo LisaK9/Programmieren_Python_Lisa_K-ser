@@ -1,5 +1,6 @@
 import calc_functions
 import pytest
+import pandas as pd
 
 """test if the function least_squared works correctly"""
 
@@ -22,3 +23,14 @@ def test_find_ideal():
     assert result[1] == "No"
     assert result[4] == "No"
     assert result[0] == "No"
+
+
+"""test if the funktion returns the column name correctly"""
+
+
+def test_get_function():
+    df = pd.DataFrame({"x": [1, 2, 3, 4],  # Create example data
+                       "y": [1, 2, 3, 4],
+                       "y1": [1, 2, 3, 4],
+                       "y2": [10, 30, 50, 70]})
+    assert calc_functions.get_function(df) == 'y'
