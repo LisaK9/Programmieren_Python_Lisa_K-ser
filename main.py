@@ -136,7 +136,7 @@ data_function1 = data_test.join(ideal)  # join the test data with die data of th
 print(data_function1)
 abw_test = calc_functions.least_squared(data_function1['y'], data_function1[
     column_name])  # calculate least square between y_test and y_ideal
-abw_train = data_function1['abw_train']  # get deviate from training data
+abw_train = data_function1['abw_train']  # get deviate from training data and ideal function
 abw_test_train = abw_test - abw_train  # calculate deviate between test and train deviate
 data_function1['krit'] = calc_functions.value_krit(abw_train_max)  # add criterion to dataframe
 data_function1['abw_test'] = abw_test  # add abw_test to dataframe
@@ -159,7 +159,7 @@ data_function2 = data_test.join(ideal)  # join the test data with die data of th
 print(data_function2)
 abw_test = calc_functions.least_squared(data_function2['y'], data_function2[
     column_name])  # calculate least square between y_test and y_ideal
-abw_train = data_function2['abw_train']  # get deviate from training data
+abw_train = data_function2['abw_train']  # get deviate from training data and ideal function
 abw_test_train = abw_test - abw_train  # calculate deviate between test and train deviate
 data_function2['krit'] = calc_functions.value_krit(abw_train_max)  # add criterion to dataframe
 data_function2['abw_test'] = abw_test  # add abw_test to dataframe
@@ -171,3 +171,26 @@ print("testdata function2: ", data_function2)  # print testdata for function 2
 # subplot with training data - ideal function and ideal function - matching test data:
 plot.plot_fit_test(ideal.index, new_y2['y2'], ideal[column_name], 'data f2', data_function2.index, data_function2['y'])
 plot.error_plot(data_function2.index, data_function2[column_name], None, data_function2['abw_test'])  # errorplot of y_test
+
+"""Compare train function 3 with test data"""
+column_name = calc_functions.get_function(new_y3)  # get column name of ideal function 3
+abw_train_max = np.max(new_y3[column_name])  # get max deviate from training data
+ideal = data_ideal.filter(items=['x', column_name])  # filtering data_ideal to the ideal function
+ideal['abw_train'] = new_y3[column_name].tolist()  # add abw_train to the dataframe ideal
+ideal.set_index('x', inplace=True)  # set column x as index
+data_function3 = data_test.join(ideal)  # join the test data with die data of the ideal function
+print(data_function3)
+abw_test = calc_functions.least_squared(data_function3['y'], data_function3[
+    column_name])  # calculate least square between y_test and y_ideal
+abw_train = data_function3['abw_train']  # get deviate from training data and ideal function
+abw_test_train = abw_test - abw_train  # calculate deviate between test and train deviate
+data_function3['krit'] = calc_functions.value_krit(abw_train_max)  # add criterion to dataframe
+data_function3['abw_test'] = abw_test  # add abw_test to dataframe
+data_function3['abw_test_train'] = abw_test_train  # add abw_test_train to dataframe
+values = data_function3['abw_test_train'] < data_function3['krit']  # condition: abw test train has to be smaller than criterion
+data_function3 = data_function3[values]  # filter dataframe based on the condition
+data_function3['ideal_function'] = column_name  # add column_name of ideal function to dataframe
+print("testdata function3: ", data_function3)  # print testdata for function 1
+# subplot with training data - ideal function and ideal function - matching test data:
+plot.plot_fit_test(ideal.index, new_y3['y3'], ideal[column_name], 'data f3', data_function3.index, data_function3['y'])
+plot.error_plot(data_function3.index, data_function3[column_name], None, data_function3['abw_test'])  # errorplot of y_test
