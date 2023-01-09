@@ -35,3 +35,15 @@ def plot_fit_test(x, y, y_ideal, label, x_test, y_test):
     ax2.legend()
     plt.tight_layout()
     plt.show()
+
+
+"""plot function for the errors of y-test compared to y-ideal"""
+
+
+def error_plot(x, y, x_err, y_err):
+    plt.errorbar(x, y, xerr=x_err, yerr=y_err)
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title('Ideal Function and Errors of y-Test')
+    plt.tight_layout()
+    plt.show()

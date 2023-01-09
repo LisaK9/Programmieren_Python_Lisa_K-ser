@@ -147,3 +147,4 @@ data_function1['ideal_function'] = column_name  # add column_name of ideal funct
 print("testdata function1: ", data_function1)  # print testdata for function 1
 # subplot with training data - ideal function and ideal function - matching test data
 plot.plot_fit_test(ideal.index, new_y1['y1'], ideal[column_name], 'data f1', data_function1.index, data_function1['y'])
+plot.error_plot(data_function1.index, data_function1[column_name], None, data_function1['abw_test'])
