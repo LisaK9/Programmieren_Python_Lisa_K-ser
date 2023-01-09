@@ -86,3 +86,19 @@ new_y2 = new_y2.T  # transpose dataframe to origin
 new_y2 = y2_data.join(new_y2)  # join the two dataframes to get x-, y-train and y-abw of the ideal function
 new_y2.set_index('x', inplace=True)  # set column x as index
 print("function 2: ", new_y2)  # print dataframe of function 2
+
+# find ideal function of training function 3:
+abw = calc_functions.least_squared(y3_data['y3'], ideal_y)  # calculate least square of training function3
+abw_t = abw.T  # transpose deviation
+sum_abw = abw_t.sum()  # calculate sum of deviation
+min_abw = sum_abw.min()  # calculate minimal sum
+result = calc_functions.find_ideal(sum_abw, min_abw)  # find ideal function for training function 3
+new_y3 = pd.DataFrame(abw)  # create new dataframe from the calculated deviations
+new_y3['Sum Abw'] = sum_abw.tolist()  # add sum of deviation to dataframe
+new_y3['ideal_function'] = result  # add result yes or no as column to the dataframe
+new_y3 = new_y3.loc[(new_y3['ideal_function'] == "Yes")]  # filter by the ideal function (value equals yes)
+new_y3 = calc_functions.drop_columns(new_y3)
+new_y3 = new_y3.T  # transpose dataframe to origin
+new_y3 = y3_data.join(new_y3)  # join the two dataframes to get x-, y-train and y-abw of the ideal function
+new_y3.set_index('x', inplace=True)  # set column x as index
+print("function 3: ", new_y3)  # print dataframe of function 3
