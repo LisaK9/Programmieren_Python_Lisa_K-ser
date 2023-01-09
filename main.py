@@ -217,3 +217,9 @@ print("testdata function4: ", data_function4)  # print testdata for function 4
 # subplot with training data - ideal function and ideal function - matching test data:
 plot.plot_fit_test(ideal.index, new_y4['y4'], ideal[column_name], 'data f4', data_function4.index, data_function4['y'])
 plot.error_plot(data_function4.index, data_function4[column_name], None, data_function4['abw_test'])  # errorplot of y_test
+
+# filter dataframes by relevant columns
+data_function1 = data_function1.filter(items=['y', 'abw_test', 'ideal_function'])
+data_function2 = data_function2.filter(items=['y', 'abw_test', 'ideal_function'])
+data_function3 = data_function3.filter(items=['y', 'abw_test', 'ideal_function'])
+data_function4 = data_function4.filter(items=['y', 'abw_test', 'ideal_function'])
