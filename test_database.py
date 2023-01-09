@@ -1,14 +1,6 @@
 import database
 import pytest
 
-"""test if readCsv works correctly"""
-
-
-def test_readCsv():
-    csv = database.ReadCsv()
-    csv.readCsv('test.csv')
-    assert csv.getHeader() == ['x', 'y']
-
 
 """test if Exception handling for train and ideal works correctly"""
 
@@ -25,3 +17,12 @@ def test_readCsv(files):
         print('Error: ', e)
     else:
         print(csv.getHeader())
+
+
+@pytest.mark.parametrize('csv, expected',
+                         [('test.csv', ['x', 'y']), ('train.csv', ['x', 'y1', 'y2', 'y3', 'y4'])])
+def test_getHeader(csv, expected):
+    file = database.ReadCsv()
+    file.readCsv(csv)
+    assert file.getHeader() == expected
+
