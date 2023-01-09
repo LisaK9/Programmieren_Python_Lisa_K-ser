@@ -34,3 +34,12 @@ def test_get_function():
                        "y1": [1, 2, 3, 4],
                        "y2": [10, 30, 50, 70]})
     assert calc_functions.get_function(df) == 'y'
+
+
+"""Test if function returns the criterion for the test validation correctly"""
+
+
+@pytest.mark.parametrize('abw_max, expected',
+                         [(1.0, 2.414213562373095), (2.0, 3.414213562373095), (-1.0, 0.41421356237309515)])
+def test_value_krit(abw_max, expected):
+    assert calc_functions.value_krit(abw_max) == expected
