@@ -3,6 +3,7 @@ import plot
 import calc_functions
 import pandas as pd
 import numpy as np
+import errors
 
 # Read train.csv and ideal.csv, create table and write data into DB
 
@@ -43,18 +44,23 @@ else:
 
 # for each training function create a dataframe with x- and y values
 y1_data = data_train.filter(items=['x', 'y1'])
+y1_data = y1_data.astype(float)
 y2_data = data_train.filter(items=['x', 'y2'])
+y2_data = y2_data.astype(float)
 y3_data = data_train.filter(items=['x', 'y3'])
+y3_data = y3_data.astype(float)
 y4_data = data_train.filter(items=['x', 'y4'])
+y4_data = y4_data.astype(float)
 x_data = y1_data['x']
-
+x_data = x_data.astype(float)
+print(y1_data.y1)
+data_ideal = data_ideal.astype(float)
 # plot trainings functions
 plot.train_functions(y1_data['x'], y1_data['y1'], y2_data['y2'], y3_data['y3'], y4_data['y4'])
 
 # drop x values from ideal functions
 ideal_y = data_ideal.drop(columns='x')
 ideal_y = ideal_y.T  # transpose data ideal
-
 # find ideal function of training function 1:
 abw = calc_functions.least_squared(y1_data['y1'], ideal_y)  # calculate least square of training function1
 abw_t = abw.T  # transpose deviation
@@ -231,3 +237,28 @@ table_test = data_all.groupby(['x', 'y']).agg(
     {'ideal_function': lambda x: ",".join(x), 'abw_test': ['max']}).reset_index()
 table_test.columns = ['x', 'y', 'ideal_function', 'abw_test_max']  # rename the column names
 print("Table test data: ", table_test)  # print the dataframe
+
+
+# insert data from dataframe into database
+db_table_test = database.WriteDataframeIntoDB('TEST', table_test)  # create instance
+
+# Write data of table_test into the database:
+
+len_columns = 4  # the test table must have four columns
+try:
+    db_table_test.getHeader()  # try get header of table test
+    if len(db_table_test.header) < len_columns:
+        raise errors.NotEnoughColumns  # custom exception
+    elif len(db_table_test.header) > len_columns:
+        raise errors.TooManyColumns  # custom exception
+except errors.NotEnoughColumns:
+    print("The length of the columns is too small")
+    print()
+except errors.TooManyColumns:
+    print("The length of the columns is too big")
+    print()
+else:
+    db_table_test.dropTable()  # drop table test
+    db_table_test.createTable()  # create table test
+    db_table_test.insertTable()  # insert data into table test
+    print("Insert data into Table Test")
