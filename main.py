@@ -118,3 +118,8 @@ new_y4 = new_y4.T  # transpose dataframe to origin
 new_y4 = y4_data.join(new_y4)  # join the two dataframes to get x-, y-train and y-abw of the ideal function
 new_y4.set_index('x', inplace=True)  # set column x as index
 print("function 4: ", new_y4)  # print dataframe of function 4
+
+# read test data from csv as dataframe:
+data_test = pd.read_csv('test.csv')  # import data from test.csv as dataframe
+data_test.set_index('x', inplace=True)  # set column x as index
+print("Data of test.csv: ", data_test)  # print test_data
