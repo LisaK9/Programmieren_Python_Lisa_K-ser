@@ -145,3 +145,5 @@ values = data_function1['abw_test_train'] < data_function1['krit']  # condition:
 data_function1 = data_function1[values]  # filter dataframe based on the condition
 data_function1['ideal_function'] = column_name  # add column_name of ideal function to dataframe
 print("testdata function1: ", data_function1)  # print testdata for function 1
+# subplot with training data - ideal function and ideal function - matching test data
+plot.plot_fit_test(ideal.index, new_y1['y1'], ideal[column_name], 'data f1', data_function1.index, data_function1['y'])
