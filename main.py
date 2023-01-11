@@ -232,7 +232,8 @@ data_function4 = data_function4.filter(items=['y', 'abw_test', 'ideal_function']
 
 # Join the four dataframes:
 data_all = pd.concat([data_function1, data_function2, data_function3, data_function4], axis=0)
-# aggregate dataframe to maximum deviation and write name of ideal function in a column:
+print(data_all)
+# aggregate dataframe to maximum deviation and write name of ideal function in one column:
 table_test = data_all.groupby(['x', 'y']).agg(
     {'ideal_function': lambda x: ",".join(x), 'abw_test': ['max']}).reset_index()
 table_test.columns = ['x', 'y', 'ideal_function', 'abw_test_max']  # rename the column names
