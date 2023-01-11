@@ -103,7 +103,7 @@ class WriteDataframeIntoDB(DatabaseOperations):
         self.table_name = table_name
 
     def insertTable(self):
-        self.sql = 'INSERT INTO {0} ('.format(self.table_name)  # insert all rows from csv
+        self.sql = 'INSERT INTO {0} ('.format(self.table_name)  # insert all rows from dataframe
         for column in self.header:
             self.sql += column + ', '
         self.sql = self.sql[:-2] + ') VALUES('

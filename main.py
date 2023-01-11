@@ -53,7 +53,6 @@ y4_data = data_train.filter(items=['x', 'y4'])
 y4_data = y4_data.astype(float)
 x_data = y1_data['x']
 x_data = x_data.astype(float)
-print(y1_data.y1)
 data_ideal = data_ideal.astype(float)
 # plot trainings functions
 plot.train_functions(y1_data['x'], y1_data['y1'], y2_data['y2'], y3_data['y3'], y4_data['y4'])
