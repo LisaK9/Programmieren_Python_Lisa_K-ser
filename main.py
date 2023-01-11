@@ -152,8 +152,10 @@ data_function1 = data_function1[values]  # filter dataframe based on the conditi
 data_function1['ideal_function'] = column_name  # add column_name of ideal function to dataframe
 print("testdata function1: ", data_function1)  # print testdata for function 1
 # subplot with training data - ideal function and ideal function - matching test data:
-plot.plot_fit_test(ideal.index, new_y1['y1'], ideal[column_name], 'data f1', data_function1.index, data_function1['y'], 'F1_Trainings-_idealeFunktion&Testdaten.png')
-plot.error_plot(data_function1.index, data_function1[column_name], None, data_function1['abw_test'], 'Errorplot_F1.png')  # errorplot of y_test
+plot.plot_fit_test(ideal.index, new_y1['y1'], ideal[column_name], 'data f1', data_function1.index, data_function1['y'],
+                   'F1_Trainings-_idealeFunktion&Testdaten.png')
+plot.error_plot(data_function1.index, data_function1[column_name], None, data_function1['abw_test'],
+                'Errorplot_F1.png')  # errorplot of y_test
 
 """Compare train function 2 with test data"""
 column_name = calc_functions.get_function(new_y2)  # get column name of ideal function 2
@@ -175,8 +177,10 @@ data_function2 = data_function2[values]  # filter dataframe based on the conditi
 data_function2['ideal_function'] = column_name  # add column_name of ideal function to dataframe
 print("testdata function2: ", data_function2)  # print testdata for function 2
 # subplot with training data - ideal function and ideal function - matching test data:
-plot.plot_fit_test(ideal.index, new_y2['y2'], ideal[column_name], 'data f2', data_function2.index, data_function2['y'], 'F2_Trainings-_idealeFunktion&Testdaten.png')
-plot.error_plot(data_function2.index, data_function2[column_name], None, data_function2['abw_test'], 'Errorplot_F2.png')  # errorplot of y_test
+plot.plot_fit_test(ideal.index, new_y2['y2'], ideal[column_name], 'data f2', data_function2.index, data_function2['y'],
+                   'F2_Trainings-_idealeFunktion&Testdaten.png')
+plot.error_plot(data_function2.index, data_function2[column_name], None, data_function2['abw_test'],
+                'Errorplot_F2.png')  # errorplot of y_test
 
 """Compare train function 3 with test data"""
 column_name = calc_functions.get_function(new_y3)  # get column name of ideal function 3
@@ -198,8 +202,10 @@ data_function3 = data_function3[values]  # filter dataframe based on the conditi
 data_function3['ideal_function'] = column_name  # add column_name of ideal function to dataframe
 print("testdata function3: ", data_function3)  # print testdata for function 3
 # subplot with training data - ideal function and ideal function - matching test data:
-plot.plot_fit_test(ideal.index, new_y3['y3'], ideal[column_name], 'data f3', data_function3.index, data_function3['y'], 'F3_Trainings-_idealeFunktion&Testdaten.png')
-plot.error_plot(data_function3.index, data_function3[column_name], None, data_function3['abw_test'], 'Errorplot_F3.png')  # errorplot of y_test
+plot.plot_fit_test(ideal.index, new_y3['y3'], ideal[column_name], 'data f3', data_function3.index, data_function3['y'],
+                   'F3_Trainings-_idealeFunktion&Testdaten.png')
+plot.error_plot(data_function3.index, data_function3[column_name], None, data_function3['abw_test'],
+                'Errorplot_F3.png')  # errorplot of y_test
 
 """Compare train function 3 with test data"""
 column_name = calc_functions.get_function(new_y4)  # get column name of ideal function 4
@@ -221,8 +227,10 @@ data_function4 = data_function4[values]  # filter dataframe based on the conditi
 data_function4['ideal_function'] = column_name  # add column_name of ideal function to dataframe
 print("testdata function4: ", data_function4)  # print testdata for function 4
 # subplot with training data - ideal function and ideal function - matching test data:
-plot.plot_fit_test(ideal.index, new_y4['y4'], ideal[column_name], 'data f4', data_function4.index, data_function4['y'], 'F4_Trainings-_idealeFunktion&Testdaten.png')
-plot.error_plot(data_function4.index, data_function4[column_name], None, data_function4['abw_test'], 'Errorplot_F4.png')  # errorplot of y_test
+plot.plot_fit_test(ideal.index, new_y4['y4'], ideal[column_name], 'data f4', data_function4.index, data_function4['y'],
+                   'F4_Trainings-_idealeFunktion&Testdaten.png')
+plot.error_plot(data_function4.index, data_function4[column_name], None, data_function4['abw_test'],
+                'Errorplot_F4.png')  # errorplot of y_test
 
 # filter dataframes by relevant columns
 data_function1 = data_function1.filter(items=['y', 'abw_test', 'ideal_function'])
