@@ -5,9 +5,10 @@ import pytest
 """test if Exception handling for train and ideal works correctly"""
 
 
-@pytest.mark.parametrize('files',
-                         ['test.csv', 'ideal.csv', 'train.csv', 'test_.csv', 'example.csv'])
-def test_readCsv(files):
+@pytest.mark.parametrize('files, expected',
+                         [('test.csv', "['x', 'y']\n"), ('example.csv',
+                                                         "[Errno 2] No such file or directory: 'example.csv'\n")])
+def test_readCsv(capsys, files, expected):
     csv = database.DatabaseOperations('table_name')
     try:
         csv.readCsv(files)
@@ -17,6 +18,9 @@ def test_readCsv(files):
         print('Error: ', e)
     else:
         print(csv.getHeader())
+    captures = capsys.readouterr()
+    assert captures.out == expected
+
 
 
 @pytest.mark.parametrize('csv, expected',
